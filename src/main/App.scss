@@ -159,3 +159,17 @@ h1, h2, h3, h4, h5, h6 {
       height: 100%;
     }
   }
+
+  .custom_view {
+    padding-top: 8px;
+    padding-left:8px;
+    border-radius:5px;
+    display: inline-block;
+    color:white;
+    border:solid 0.05em;
+    margin: 1em;
+    border-color: #CFB53B;
+    background:#252120;
+    cursor: pointer;
+  }
+  

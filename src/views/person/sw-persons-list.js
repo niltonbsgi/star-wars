@@ -20,7 +20,7 @@ function mapStateToProps(state) {
     }
   }
 
-  const Card = ({name, height, mass, hair_color, birth_year, skin_color}) =>{
+  const Card = ({props, name, height, mass, hair_color, birth_year, skin_color, starships}) =>{
     return(
         <div>
             <div style={ style.tagStyle }><label>{name}</label></div>
@@ -44,6 +44,17 @@ function mapStateToProps(state) {
             <div>    
                 <div style={ style.tagTitle }><label>Skin Color:</label></div>
                 <label>{ skin_color }</label>
+            </div>
+            <div onClick={()=>{
+                const { history } = props;
+                history.push({
+                    pathname: `/sw_persons/${name}`,
+                    state : { name: `${name}'s Star Ship`, url_list: starships }                    
+                });
+            }}>
+                <div style={ style.tagTitle }>
+                    <label style={ style.styleTextDecoration }>{'Star Ship...'}</label>
+                </div>
             </div>            
         </div>
     )
@@ -55,51 +66,58 @@ class SwPersonsList extends React.Component {
         super(props)
 
         this.state={
-            list_persons: []
+            list_persons: [],
+            url_star_ship: ''
         }
-    }
+
+        this.onChange = this.onChange.bind(this)
+    }    
 
     componentDidMount(){
 
         const { onGetList } = this.props
+
         onGetList()
             .then(()=>{
-                
                 this.setState({
                     ...this.state, 
                     list_persons: this.props.list.results
-                })
-                console.log( this.props.list.results )
+                })})
+            .catch((err)=> {
                 
-            })
-            .catch((err)=>{
-                console.log( err )
-            })
+                console.log( err )})
         
     }
+
+    onChange(e){
+        let list_persons = this.props.list.results.filter(function (item) {
+            return item.name.toLowerCase().search(
+                e.target.value.toLowerCase()) !== -1;
+        })
+        this.setState({list_persons: list_persons})
+    }
+
     render(){
         return (
             <div>
-                <Header
-                    onChange={(e)=> {
-                        debugger
-                        let list_persons = this.props.list.results.filter(function (item) {
-                            return item.name.toLowerCase().search(
-                                e.target.value.toLowerCase()) !== -1;
-                        })
-                        this.setState({list_persons: list_persons})                            
-                    }}
-                />
-                { this.state.list_persons.map((element, i) =>{
-                    return <ListView key={i} element={ 
-                        <Card
-                            name={element.name} 
-                            height={element.height} 
-                            mass={element.mass} 
-                            hair_color={element.hair_color} 
-                            birth_year={element.birth_year} 
-                            skin_color={element.skin_color}/> 
+                <Header onChange={ (e)=> this.onChange(e) }/>
+                { this.state.list_persons.map((element, i) => {
+                    return( 
+                        <ListView 
+                            key={i}
+                            element={
+                                <Card
+                                    props={this.props}
+                                    name={element.name} 
+                                    height={element.height} 
+                                    mass={element.mass} 
+                                    hair_color={element.hair_color} 
+                                    birth_year={element.birth_year} 
+                                    skin_color={element.skin_color}
+                                    starships={element.starships}
+                                /> 
                         }/>
+                    )
                 }) }
             </div>    
         )
@@ -118,6 +136,9 @@ const style = {
         paddingRight:'5px', 
         paddingTop:'6px', 
         display: 'inline-block' 
+    },
+    styleTextDecoration: {
+        textDecoration: 'underline'
     }
 }
 

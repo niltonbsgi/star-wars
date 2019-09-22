@@ -18,3 +18,22 @@ export function _List(url) {
         }) )
     );
 };
+
+export function _List_StarShip(url) {
+    return (
+        axios_fetch('', url)
+        .then(
+            (resp) => ({
+                type: 'LIST_STARSHIP',
+                payload: resp
+            }),
+            (err)=> ({
+                type: 'ERROR',
+                payload: err
+            }))
+        .catch( (err) => ({
+            type: 'ERROR',
+            payload: err
+        }) )
+    );
+};
