@@ -7,7 +7,7 @@ import promise from 'redux-promise';
 import reducers from '../redux/reducers';
 
 
-const store = applyMiddleware(promise)(createStore)//(reducers)
+const store = applyMiddleware(promise)(createStore)(reducers)
 
 const title = '';
 
