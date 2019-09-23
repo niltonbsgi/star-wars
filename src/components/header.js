@@ -38,5 +38,3 @@ const style = {
 }
 
 export default Header;
-
-//"https://vignette.wikia.nocookie.net/leonhartimvu/images/d/dc/Star_Wars_Title.png"
