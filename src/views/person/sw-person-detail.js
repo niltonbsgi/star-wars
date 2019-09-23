@@ -123,7 +123,7 @@ class SwPersonDetail extends React.Component {
         })
     }
     
-    goBack(){ debugger
+    goBack(){
         this.props.history.push(`/sw_persons/`)
     }
 
@@ -134,6 +134,7 @@ class SwPersonDetail extends React.Component {
                     this.state.url_list.map((element, i)=>{
                         return( 
                             <div 
+                                key={ i }
                                 style={ style.styleFontSize } 
                                 onClick={ ()=>{ 
 

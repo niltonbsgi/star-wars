@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Star_Wars_Title from '../assets/Star_Wars_Title.png'
 
 const Header = ({onChange}) => {
@@ -36,5 +37,13 @@ const style = {
         paddingBottom:'5px'
     }
 }
+
+Header.propTypes = {
+    onChange: PropTypes.func
+  };
+
+Header.defaultProps = {
+    onChange: ()=> {}
+  };
 
 export default Header;
