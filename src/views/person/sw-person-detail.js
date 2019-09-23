@@ -2,6 +2,7 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { _List_StarShip } from  './sw-person-action';
+import Page from 'react-page-loading';
 
 function mapStateToProps(state) {
     const { list_star_ship, error } = state.PersonsReducer;
@@ -30,7 +31,7 @@ const Card = ({
     starship_class, 
     MGLT, 
     consumables}) =>{
-    return(
+    return(        
         <div>
             <div align="center" style={ style.tagStyle }>
                 <label>Details</label>
@@ -148,7 +149,7 @@ class SwPersonDetail extends React.Component {
                         )
                     }) 
                 }              
-            </div>
+            </div>            
         )
     }
 
@@ -158,19 +159,21 @@ class SwPersonDetail extends React.Component {
             <div 
                 className="custom_view" 
                 style={ style.styleDetail }>
-                    <Card
-                        goBack={ this.goBack }
-                        starShipList={ this.starShipList }
-                        name={ list_star_ship.name }
-                        model={ list_star_ship.model }
-                        manufacturer={ list_star_ship.manufacturer }
-                        max_atmosphering_speed={ list_star_ship.max_atmosphering_speed }
-                        length={ list_star_ship.length }
-                        hyperdrive_rating={ list_star_ship.hyperdrive_rating }
-                        starship_class={ list_star_ship.starship_class }
-                        MGLT={ list_star_ship.MGLT }
-                        consumables={ list_star_ship.consumables }                        
-                    />                    
+                    <Page loader={"bar"} color={"#A9A9A9"} size={4}>
+                        <Card
+                            goBack={ this.goBack }
+                            starShipList={ this.starShipList }
+                            name={ list_star_ship.name }
+                            model={ list_star_ship.model }
+                            manufacturer={ list_star_ship.manufacturer }
+                            max_atmosphering_speed={ list_star_ship.max_atmosphering_speed }
+                            length={ list_star_ship.length }
+                            hyperdrive_rating={ list_star_ship.hyperdrive_rating }
+                            starship_class={ list_star_ship.starship_class }
+                            MGLT={ list_star_ship.MGLT }
+                            consumables={ list_star_ship.consumables }                        
+                        />
+                    </Page>                    
             </div>    
         )
     }
@@ -208,7 +211,8 @@ const style={
     },
     styleTextDecoration: {
         textDecoration: 'underline',
-        color:'#CFB53B'
+        color:'#CFB53B',
+        cursor:'pointer'
     }
 
 }

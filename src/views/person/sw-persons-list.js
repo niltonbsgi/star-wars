@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { _List } from  './sw-person-action';
 import Header from '../../components/header';
 import ListView from '../../components/list-view';
+import Page from 'react-page-loading';
 
 function mapStateToProps(state) {
     const { list, error } = state.PersonsReducer;
@@ -100,25 +101,27 @@ class SwPersonsList extends React.Component {
     render(){
         return (
             <div>
-                <Header onChange={ (e)=> this.onChange(e) }/>
-                { this.state.list_persons.map((element, i) => {
-                    return( 
-                        <ListView 
-                            key={i}
-                            element={
-                                <Card
-                                    props={this.props}
-                                    name={element.name} 
-                                    height={element.height} 
-                                    mass={element.mass} 
-                                    hair_color={element.hair_color} 
-                                    birth_year={element.birth_year} 
-                                    skin_color={element.skin_color}
-                                    starships={element.starships}
-                                /> 
-                        }/>
-                    )
-                }) }
+                <Page loader={"bar"} color={"#A9A9A9"} size={4}>
+                    <Header onChange={ (e)=> this.onChange(e) }/>
+                    { this.state.list_persons.map((element, i) => {
+                        return( 
+                            <ListView 
+                                key={i}
+                                element={
+                                    <Card
+                                        props={this.props}
+                                        name={element.name} 
+                                        height={element.height} 
+                                        mass={element.mass} 
+                                        hair_color={element.hair_color} 
+                                        birth_year={element.birth_year} 
+                                        skin_color={element.skin_color}
+                                        starships={element.starships}
+                                    /> 
+                            }/>
+                        )
+                    }) }                
+                </Page>
             </div>    
         )
     }
@@ -139,7 +142,8 @@ const style = {
     },
     styleTextDecoration: {
         textDecoration: 'underline',
-        color:'#CFB53B'
+        color:'#CFB53B',
+        cursor:'pointer'
     }
 }
 
