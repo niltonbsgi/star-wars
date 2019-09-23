@@ -112,15 +112,26 @@ class SwPersonDetail extends React.Component {
     }
 
     componentDidMount(){
-
+        debugger
         const { history } = this.props
-        const { url_list, name } = history.location.state
-        
-        this.setState({
-            ...this.state, 
-            url_list: url_list,
-            shipOwner: name
-        })
+        if(history !== undefined){
+            try
+            {
+                const { url_list, name } = history.location.state
+                debugger
+                this.setState({
+                    ...this.state, 
+                    url_list: url_list,
+                    shipOwner: name
+                })
+            }catch{
+                this.setState({
+                    ...this.state, 
+                    url_list: [],
+                    shipOwner: ''
+                })
+            }
+        }
     }
     
     goBack(){
