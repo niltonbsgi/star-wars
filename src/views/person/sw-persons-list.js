@@ -80,6 +80,7 @@ class SwPersonsList extends React.Component {
 
         onGetList()
             .then(()=>{
+                debugger
                 this.setState({
                     ...this.state, 
                     list_persons: this.props.list.results
