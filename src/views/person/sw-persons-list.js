@@ -138,7 +138,8 @@ const style = {
         display: 'inline-block' 
     },
     styleTextDecoration: {
-        textDecoration: 'underline'
+        textDecoration: 'underline',
+        color:'#CFB53B'
     }
 }
 

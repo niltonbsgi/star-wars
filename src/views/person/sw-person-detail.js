@@ -18,10 +18,23 @@ function mapDispatchToProps(dispatch) {
     }
 }
 
-const Card = ({starShipList, name, model, manufacturer, max_atmosphering_speed, length, hyperdrive_rating, starship_class, MGLT, consumables}) =>{
+const Card = ({
+    goBack,
+    starShipList, 
+    name, 
+    model, 
+    manufacturer, 
+    max_atmosphering_speed, 
+    length, 
+    hyperdrive_rating, 
+    starship_class, 
+    MGLT, 
+    consumables}) =>{
     return(
         <div>
-            <div align="center" style={ style.tagStyle }><label>Details</label></div>
+            <div align="center" style={ style.tagStyle }>
+                <label>Details</label>
+            </div>
             <br/>
 
             { starShipList() }
@@ -63,7 +76,10 @@ const Card = ({starShipList, name, model, manufacturer, max_atmosphering_speed, 
             <div>    
                 <div style={ style.tagTitle }><label>Consumables:</label></div>
                 <label style={ style.detailColor }>{ consumables }</label>
-            </div>                        
+            </div>
+
+            <br/>
+            <label style={ style.styleTextDecoration } onClick={ goBack  }>Go back</label>                        
         </div>
     )
   }
@@ -90,6 +106,7 @@ class SwPersonDetail extends React.Component {
         }
 
         this.starShipList = this.starShipList.bind(this)
+        this.goBack = this.goBack.bind(this)
 
     }
 
@@ -103,6 +120,10 @@ class SwPersonDetail extends React.Component {
             url_list: url_list,
             shipOwner: name
         })
+    }
+    
+    goBack(){ debugger
+        this.props.history.push(`/sw_persons/`)
     }
 
     starShipList(){
@@ -138,6 +159,7 @@ class SwPersonDetail extends React.Component {
                 className="custom_view" 
                 style={ style.styleDetail }>
                     <Card
+                        goBack={ this.goBack }
                         starShipList={ this.starShipList }
                         name={ list_star_ship.name }
                         model={ list_star_ship.model }
