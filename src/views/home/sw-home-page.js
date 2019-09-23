@@ -34,5 +34,3 @@ const style = {
     }
 }
 export default SwHomePage
-
-//https://www.telerik.com/blogs/5-star-wars-resources-for-developers
